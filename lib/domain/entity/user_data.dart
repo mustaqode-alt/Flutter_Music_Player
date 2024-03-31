@@ -1,5 +1,4 @@
 
-
 class UserData {
   final String email;
   final String id;
