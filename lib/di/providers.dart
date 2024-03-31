@@ -5,6 +5,8 @@ import 'package:music_player/data/datasource/local/db_manager.dart';
 import 'package:music_player/data/datasource/local/db_manager_impl.dart';
 import 'package:music_player/data/datasource/remote/firebase_service.dart';
 import 'package:music_player/data/datasource/remote/firebase_service_impl.dart';
+import 'package:music_player/data/repository/user_repository_impl.dart';
+import 'package:music_player/domain/repository/user_repository.dart';
 
 /// Firebase
 
@@ -20,8 +22,17 @@ final dbManagerProvider =
     Provider.autoDispose<DbManager>((ref) => DbManagerImpl());
 
 
-final authServiceProvider = Provider<FirebaseService>((ref) {
+final firebaseServiceProvider = Provider<FirebaseService>((ref) {
   final firebaseAuth = ref.read(firebaseAuthProvider);
   final firebaseFirestore = ref.read(firebaseFirestoreProvider);
   return FirebaseServiceImpl(firebaseAuth, firebaseFirestore);
 });
+
+/// Repository
+
+final userRepositoryProvider = Provider<UserRepository>((ref) {
+  final firebaseService = ref.read(firebaseServiceProvider);
+  final dbManager = ref.read(dbManagerProvider);
+  return UserRepositoryImpl(firebaseService, dbManager);
+});
+
