@@ -12,10 +12,11 @@ import 'package:music_player/presentation/config/routes.dart';
 import 'package:music_player/presentation/config/theme/custom_theme.dart';
 import 'package:music_player/presentation/config/theme/theme_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:music_player/presentation/screens/login/login_screen.dart';
 
 import 'data/datasource/local/db_boxes.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -37,7 +38,10 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.read(themeProvider);
 
+    print("Mustaq - theme - $themeMode");
+
     return MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerConfig: _router(ref),
         title: 'Flutter Demo',
         theme: CustomThemes.lightTheme,
@@ -53,12 +57,13 @@ GoRouter _router(WidgetRef ref) {
       GoRoute(
         path: Routes.login,
         builder: (context, state) {
-          final auth = ref.read(firebaseAuthProvider); // Access FirebaseAuth via DI
+          final auth =
+              ref.read(firebaseAuthProvider); // Access FirebaseAuth via DI
           final user = auth.currentUser;
           if (user != null) {
-            return const Center(child: Text("Home"),); // Replace with your logged in screen
+            return  LoginScreen(); // Replace with your logged in screen
           } else {
-            return const Center(); // Replace with your login screen
+            return  LoginScreen(); // Replace with your login screen
           }
         },
       ),

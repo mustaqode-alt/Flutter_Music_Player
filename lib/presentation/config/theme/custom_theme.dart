@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:music_player/presentation/config/palette.dart';
+
+import '../palette.dart';
 
 class CustomThemes {
-  static ThemeData lightTheme = ThemeData(
-    primaryColor: Palette.primaryLight,
-    secondaryHeaderColor: Palette.secondaryLight,
-    scaffoldBackgroundColor: Palette.backgroundLight,
-    textTheme: const TextTheme().apply(bodyColor: Palette.textLight, displayColor: Palette.textLight),
+  static ThemeData lightTheme = ThemeData.light().copyWith(
+    colorScheme: const ColorScheme.light(
+      primary: Palette.primaryLight,
+      secondary: Palette.secondaryLight,
+      background: Palette.backgroundLight,
+      onPrimary: Palette.textLight,
+      onSecondary: Palette.textLight,
+      onBackground: Palette.textLight,
+    ),
   );
 
-  static ThemeData darkTheme = ThemeData(
-    primaryColor: Palette.primaryDark,
-    secondaryHeaderColor: Palette.secondaryDark,
-    scaffoldBackgroundColor: Palette.backgroundDark,
-    textTheme: const TextTheme().apply(bodyColor: Palette.textDark, displayColor: Palette.textDark),
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
+    colorScheme: const ColorScheme.dark(
+      primary: Palette.primaryDark,
+      secondary: Palette.secondaryDark,
+      background: Palette.backgroundDark,
+      onPrimary: Palette.textDark,
+      onSecondary: Palette.textDark,
+      onBackground: Palette.textDark,
+    ),
   );
-
 }
-

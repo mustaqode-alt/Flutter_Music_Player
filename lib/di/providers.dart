@@ -6,7 +6,10 @@ import 'package:music_player/data/datasource/local/db_manager_impl.dart';
 import 'package:music_player/data/datasource/remote/firebase_service.dart';
 import 'package:music_player/data/datasource/remote/firebase_service_impl.dart';
 import 'package:music_player/data/repository/user_repository_impl.dart';
+import 'package:music_player/domain/entity/user_data.dart';
 import 'package:music_player/domain/repository/user_repository.dart';
+import 'package:music_player/domain/result.dart';
+import 'package:music_player/presentation/screens/login/login_controller.dart';
 
 import '../domain/usecase/get_user_favourites_use_case.dart';
 import '../domain/usecase/login_or_signup_use_case.dart';
@@ -67,6 +70,12 @@ final updateFavouritesToServerUseCaseProvider =
 });
 
 /// Controllers
+
+final loginControllerProvider =
+    StateNotifierProvider.autoDispose<LoginController, Result<UserData>>((ref) {
+  final loginUseCase = ref.watch(loginOrSignupUseCaseProvider);
+  return LoginController(loginUseCase);
+});
 
 /// other
 

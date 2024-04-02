@@ -26,4 +26,6 @@ class Assets {
   static const String songImage9 = '$imagesPath/knaan.jpg';
   static const String songImage10 = '$imagesPath/nrt.png';
 
+  static const String bgArtist = '$imagesPath/bg_artist.jpg';
+
 }
