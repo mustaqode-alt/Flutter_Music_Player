@@ -56,7 +56,7 @@ GoRouter _router(WidgetRef ref) {
           final auth = ref.read(firebaseAuthProvider); // Access FirebaseAuth via DI
           final user = auth.currentUser;
           if (user != null) {
-            return const Center(); // Replace with your logged in screen
+            return const Center(child: Text("Home"),); // Replace with your logged in screen
           } else {
             return const Center(); // Replace with your login screen
           }

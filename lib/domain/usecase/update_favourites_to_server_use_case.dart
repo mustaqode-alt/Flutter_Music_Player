@@ -6,7 +6,7 @@ class UpdateFavouritesToServerUseCase {
 
   UpdateFavouritesToServerUseCase(this._userRepository);
 
-  Future<Result<void>> call(List<String> favourites) {
+  Future<Result<void>> call([List<String>? favourites]) {
     return _userRepository.updateFavouritesToServer(favourites);
   }
 }

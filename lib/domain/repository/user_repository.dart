@@ -10,7 +10,7 @@ abstract class UserRepository {
 
   Future<void> updateFavouritesToDb(List<String> favourites);
 
-  Future<Result<void>> updateFavouritesToServer(List<String> favourites);
+  Future<Result<void>> updateFavouritesToServer(List<String>? favourites);
 
   Future<List<String>> getUserFavourites();
 
