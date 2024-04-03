@@ -8,6 +8,7 @@ import 'package:music_player/presentation/config/assets.dart';
 import 'package:music_player/presentation/config/palette.dart';
 import 'package:music_player/presentation/config/routes.dart';
 import 'package:music_player/presentation/config/songs.dart';
+import 'package:music_player/presentation/config/strings.dart';
 import 'package:music_player/presentation/config/theme/theme_provider.dart';
 
 import '../../../domain/entity/song.dart';
@@ -72,7 +73,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text("Welcome",
+                    const Text(Strings.strWelcome,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 32.0)),
                     const Spacer(),
@@ -109,7 +110,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   controller: _searchController,
                   onChanged: _onSearchTextChanged,
                   decoration: InputDecoration(
-                    hintText: 'Search',
+                    hintText: Strings.strSearch,
                     filled: true,
                     fillColor: Theme.of(context)
                         .colorScheme

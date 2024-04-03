@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -11,6 +10,7 @@ import 'package:music_player/domain/result.dart';
 import 'package:music_player/presentation/config/assets.dart';
 import 'package:music_player/presentation/config/palette.dart';
 import 'package:music_player/presentation/config/routes.dart';
+import 'package:music_player/presentation/config/strings.dart';
 import 'package:music_player/presentation/helper/utils.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -70,7 +70,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               const Icon(
                 Icons.music_note,
-                size: 100, // Adjust the size of the music icon as needed
+                size: 100,
                 color: Palette.primaryLight,
               ).animate().shimmer(duration: const Duration(seconds: 2)).flipH(),
               const SizedBox(height: 20.0),
@@ -103,7 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
-                    hintText: 'Email',
+                    hintText: Strings.strEmail,
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.secondary,
                     border: OutlineInputBorder(
@@ -118,7 +118,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   controller: _passwordController,
                   obscureText: _obscurePassword,
                   decoration: InputDecoration(
-                    hintText: 'Password',
+                    hintText: Strings.strPassword,
                     filled: true,
                     fillColor: Theme.of(context).colorScheme.secondary,
                     border: OutlineInputBorder(
@@ -154,7 +154,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        child: const Text('Login/Signup'),
+                        child: const Text(Strings.strLogin),
                       ),
                     ),
                     if (_isLoading)
@@ -177,8 +177,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final password = _passwordController.text.trim();
 
     if (email.isEmpty || !isEmailValid(email) || password.length < 6) {
-      showToast(
-          'Please enter a valid email and password (at least 6 characters)');
+      showToast(Strings.errValidation);
       return;
     } else {
       setState(() {

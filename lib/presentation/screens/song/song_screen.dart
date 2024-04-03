@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:music_player/di/providers.dart';
 import 'package:music_player/presentation/config/assets.dart';
 import 'package:music_player/presentation/config/palette.dart';
-
+import 'package:music_player/presentation/config/strings.dart';
 import '../../../domain/entity/song.dart';
 
 class SongScreen extends ConsumerStatefulWidget {
@@ -64,7 +64,7 @@ class _SongScreenState extends ConsumerState<SongScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('Now Playing...'),
+        title: const Text(Strings.strNowPlaying),
         backgroundColor: Theme.of(context).colorScheme.background,
         actions: [
           IconButton(
