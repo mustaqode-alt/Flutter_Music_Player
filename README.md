@@ -1,16 +1,28 @@
-# music_player
+# Flutter Music Player
 
-A new Flutter project.
+A beautiful music player made in Flutter.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Login / Signup to keep your favourites synced to the server.
+- Search functionality. 
+- Favourites marked offline are synced to the server whenever the device goes online.
+- You can play, pause and control the music using the slider.
+- Implemented animations on all the screens especially the Hero animation during transition.
+- Dark mode support - you can toggle between light and dark mode
+- Login on multiple devices
 
-A few resources to get you started if this is your first Flutter project:
+## Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter
+- Riverpod for state management
+- Hive for local database
+- Firebase for auth and online database
+- Go Router for routing
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+
+[![Watch the Demo Video](demo_thumbnail.png)](demo_video_link)
+
+Working demo of the app.
+
