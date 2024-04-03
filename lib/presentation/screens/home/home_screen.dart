@@ -3,6 +3,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:music_player/di/providers.dart';
+import 'package:music_player/domain/customds/pair.dart';
 import 'package:music_player/presentation/config/assets.dart';
 import 'package:music_player/presentation/config/palette.dart';
 import 'package:music_player/presentation/config/routes.dart';
@@ -37,7 +38,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _initStateLogic() {
-    super.didChangeDependencies();
     if (widget.favourites != null) {
       ref
           .read(homeControllerProvider.notifier)
@@ -164,9 +164,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 8.0),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage(song.image),
+          Hero(
+            tag: song.id,
+            child: GestureDetector(
+              onTap: () => _goToSongDetail(song),
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage(song.image),
+              ),
+            ),
           ),
           const SizedBox(width: 16.0),
           Expanded(
@@ -236,6 +242,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ],
       ),
     );
+  }
+
+  void _goToSongDetail(Song song) {
+    context.push(Routes.song, extra: Pair(song, _favourites));
   }
 
   @override

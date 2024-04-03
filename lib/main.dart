@@ -14,6 +14,7 @@ import 'package:music_player/presentation/config/theme/theme_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:music_player/presentation/screens/home/home_screen.dart';
 import 'package:music_player/presentation/screens/login/login_screen.dart';
+import 'package:music_player/presentation/screens/song/song_screen.dart';
 
 import 'data/datasource/local/db_boxes.dart';
 
@@ -78,7 +79,7 @@ GoRouter _router(WidgetRef ref) {
         path: Routes.song,
         builder: (context, state) {
           final extras = state.extra as Pair<Song, List<String>>;
-          return const Center();
+          return SongScreen(extras.first, extras.second);
         },
       ),
     ],

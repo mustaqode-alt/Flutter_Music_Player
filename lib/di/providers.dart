@@ -18,6 +18,7 @@ import '../domain/usecase/update_favourites_to_db_use_case.dart';
 import '../domain/usecase/update_favourites_to_server_use_case.dart';
 import '../presentation/connectivity/internet_connectivity_notifier.dart';
 import '../presentation/screens/home/home_controller.dart';
+import '../presentation/screens/song/song_controller.dart';
 
 /// Firebase
 
@@ -91,6 +92,16 @@ final homeControllerProvider =
             ref.read(updateFavouritesToDbUseCaseProvider),
             ref.read(getUserFavouritesUseCaseProvider),
             ref.read(logoutUseCaseProvider)));
+
+final songControllerProvider =
+    StateNotifierProvider.autoDispose<SongController, List<String>>((ref) {
+  final updateFavouritesToServerUseCase =
+      ref.read(updateFavouritesToServerUseCaseProvider);
+  final updateFavouritesToDbUseCase =
+      ref.read(updateFavouritesToDbUseCaseProvider);
+  return SongController(
+      updateFavouritesToServerUseCase, updateFavouritesToDbUseCase);
+});
 
 /// other
 
