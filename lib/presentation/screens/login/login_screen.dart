@@ -4,11 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:music_player/di/providers.dart';
 import 'package:music_player/domain/entity/user_data.dart';
+import 'package:music_player/domain/result.dart';
 import 'package:music_player/presentation/config/assets.dart';
 import 'package:music_player/presentation/config/palette.dart';
-import 'package:music_player/presentation/helper/view_utils.dart';
+import 'package:music_player/presentation/config/routes.dart';
+import 'package:music_player/presentation/helper/utils.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   @override
@@ -22,22 +25,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _isLoading = false;
   bool _isErrorShown = false;
 
+  void _initStateLogic(Result state) {
+    if (state.loading) {
+      _isLoading = true;
+      _isErrorShown = false;
+    } else if (state.error != null && !_isErrorShown) {
+        showToast(state.error!);
+        _isLoading = false;
+        _isErrorShown = true;
+      } else if (state.data != null) {
+        UserData data = state.data!;
+        _goToHomeScreen(data);
+      }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(loginControllerProvider);
-    if (state.error != null && !_isErrorShown) {
-      showToast(state.error!);
-      _isLoading = false;
-      _isErrorShown = true;
-    } else if (state.data != null) {
-      UserData data = state.data!;
-      showToast(data.id);
-    } else if (state.loading) {
-      setState(() {
-        _isLoading = true;
-        _isErrorShown = false;
-      });
-    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final state = ref.watch(loginControllerProvider);
+      _initStateLogic(state);
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -97,7 +105,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   decoration: InputDecoration(
                     hintText: 'Email',
                     filled: true,
-                    fillColor: Palette.secondaryLight,
+                    fillColor: Theme.of(context).colorScheme.secondary,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide.none,
@@ -112,7 +120,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   decoration: InputDecoration(
                     hintText: 'Password',
                     filled: true,
-                    fillColor: Palette.secondaryLight,
+                    fillColor: Theme.of(context).colorScheme.secondary,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30),
                       borderSide: BorderSide.none,
@@ -139,7 +147,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed:
-                            _isLoading ? null : () => _handleLogin(),
+                        _isLoading ? null : () => _handleLogin(),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
@@ -168,12 +176,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    if (email.isEmpty || !email.contains('@') || password.length < 6) {
+    if (email.isEmpty || !isEmailValid(email) || password.length < 6) {
       showToast(
           'Please enter a valid email and password (at least 6 characters)');
       return;
     } else {
+      setState(() {
+        _isLoading = true;
+      });
       ref.read(loginControllerProvider.notifier).loginOrSignup(email, password);
     }
+  }
+
+  void _goToHomeScreen(UserData data) {
+    context.push(Routes.home, extra: data.favourites);
   }
 }

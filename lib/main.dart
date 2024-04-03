@@ -12,6 +12,7 @@ import 'package:music_player/presentation/config/routes.dart';
 import 'package:music_player/presentation/config/theme/custom_theme.dart';
 import 'package:music_player/presentation/config/theme/theme_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:music_player/presentation/screens/home/home_screen.dart';
 import 'package:music_player/presentation/screens/login/login_screen.dart';
 
 import 'data/datasource/local/db_boxes.dart';
@@ -36,9 +37,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.read(themeProvider);
-
-    print("Mustaq - theme - $themeMode");
+    final themeMode = ref.watch(themeProvider);
 
     return MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -58,23 +57,27 @@ GoRouter _router(WidgetRef ref) {
         path: Routes.login,
         builder: (context, state) {
           final auth =
-              ref.read(firebaseAuthProvider); // Access FirebaseAuth via DI
+              ref.read(firebaseAuthProvider);
           final user = auth.currentUser;
           if (user != null) {
-            return  LoginScreen(); // Replace with your logged in screen
+            final extras = state.extra as List<String>?;
+            return  HomeScreen(extras);
           } else {
-            return  LoginScreen(); // Replace with your login screen
+            return  LoginScreen();
           }
         },
       ),
       GoRoute(
         path: Routes.home,
-        builder: (context, state) => const Center(),
+        builder: (context, state) {
+          final extras = state.extra as List<String>?;
+          return HomeScreen(extras);
+        },
       ),
       GoRoute(
         path: Routes.song,
         builder: (context, state) {
-          final extras = state.extra as Pair<Song, bool>;
+          final extras = state.extra as Pair<Song, List<String>>;
           return const Center();
         },
       ),

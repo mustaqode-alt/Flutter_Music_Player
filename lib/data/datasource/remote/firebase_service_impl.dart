@@ -43,14 +43,15 @@ class FirebaseServiceImpl extends FirebaseService {
   Future<List<String>> _fetchUserFavourites(String userId) async {
     List<String> favourites = [];
     try {
-      DocumentSnapshot<Map<String, dynamic>> preferencesSnapshot =
+      DocumentSnapshot<Map<String, dynamic>> favouritesSnapshot =
       await _firestore.collection('users').doc(userId).get();
 
-      if (preferencesSnapshot.exists) {
-        Map<String, dynamic> preferencesData = preferencesSnapshot.data()!;
-        List<String>? userFavourites = preferencesData['favourites'];
-        if (userFavourites != null) {
-          favourites = userFavourites;
+      if (favouritesSnapshot.exists) {
+        Map<String, dynamic> preferencesData = favouritesSnapshot.data()!;
+        dynamic userFavourites = preferencesData['favourites'];
+
+        if (userFavourites is List<dynamic>) {
+          favourites = userFavourites.whereType<String>().toList();
         }
       }
     } catch (error) {
@@ -72,10 +73,15 @@ class FirebaseServiceImpl extends FirebaseService {
         );
       }
       DocumentReference userDocRef = _firestore.collection('users').doc(user.uid);
-      await userDocRef.set({}, SetOptions(merge: true));
-      await userDocRef.update({'favourites': favourites});
+      await userDocRef.set({'favourites': favourites});
     } catch (error) {
       throw Exception('Failed to update favorites: $error');
     }
+  }
+
+
+  @override
+  Future<void> logout() {
+   return _auth.signOut();
   }
 }

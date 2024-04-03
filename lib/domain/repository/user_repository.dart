@@ -14,4 +14,6 @@ abstract class UserRepository {
 
   Future<List<String>> getUserFavourites();
 
+  Future<void> logout();
+
 }

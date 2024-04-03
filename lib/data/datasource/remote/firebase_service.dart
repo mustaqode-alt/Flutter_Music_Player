@@ -10,4 +10,6 @@ abstract class FirebaseService {
 
   Future<void> updateFavourites(List<String> favourites);
 
+  Future<void> logout();
+
 }

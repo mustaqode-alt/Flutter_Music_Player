@@ -15,7 +15,7 @@ class Assets {
   static const String song9 = '$songsPath/Wavin_flag.mp3';
   static const String song10 = '$songsPath/Yennai.mp3';
 
-  static const String songImage1 = '$imagesPath/2Love.jpg';
+  static const String songImage1 = '$imagesPath/2love.jpg';
   static const String songImage2 = '$imagesPath/animal.jpg';
   static const String songImage3 = '$imagesPath/believer.jpeg';
   static const String songImage4 = '$imagesPath/bones.png';

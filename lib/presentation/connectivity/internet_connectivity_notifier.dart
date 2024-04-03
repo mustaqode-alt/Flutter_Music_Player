@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:music_player/domain/usecase/update_favourites_to_server_use_case.dart';
+import 'package:music_player/presentation/helper/utils.dart';
 import 'package:riverpod/riverpod.dart';
 
 class InternetConnectivityNotifier extends StateNotifier<bool> {
@@ -18,13 +19,13 @@ class InternetConnectivityNotifier extends StateNotifier<bool> {
           result == ConnectivityResult.wifi) {
         state = true;
         wasOffline = false;
-        await updateFavouritesToServer();
+        await _updateFavouritesToServer();
       }
     });
   }
 
   /// Syncs favs to server whenever internet connectivity changes from offline to online
-  Future<void> updateFavouritesToServer() async {
+  Future<void> _updateFavouritesToServer() async {
     _updateFavouritesToServerUseCase();
   }
 }

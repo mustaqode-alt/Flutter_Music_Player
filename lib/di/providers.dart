@@ -9,6 +9,7 @@ import 'package:music_player/data/repository/user_repository_impl.dart';
 import 'package:music_player/domain/entity/user_data.dart';
 import 'package:music_player/domain/repository/user_repository.dart';
 import 'package:music_player/domain/result.dart';
+import 'package:music_player/domain/usecase/logout_use_case.dart';
 import 'package:music_player/presentation/screens/login/login_controller.dart';
 
 import '../domain/usecase/get_user_favourites_use_case.dart';
@@ -16,6 +17,7 @@ import '../domain/usecase/login_or_signup_use_case.dart';
 import '../domain/usecase/update_favourites_to_db_use_case.dart';
 import '../domain/usecase/update_favourites_to_server_use_case.dart';
 import '../presentation/connectivity/internet_connectivity_notifier.dart';
+import '../presentation/screens/home/home_controller.dart';
 
 /// Firebase
 
@@ -69,6 +71,11 @@ final updateFavouritesToServerUseCaseProvider =
   return UpdateFavouritesToServerUseCase(userRepository);
 });
 
+final logoutUseCaseProvider = Provider<LogoutUseCase>((ref) {
+  final userRepository = ref.watch(userRepositoryProvider);
+  return LogoutUseCase(userRepository);
+});
+
 /// Controllers
 
 final loginControllerProvider =
@@ -76,6 +83,14 @@ final loginControllerProvider =
   final loginUseCase = ref.watch(loginOrSignupUseCaseProvider);
   return LoginController(loginUseCase);
 });
+
+final homeControllerProvider =
+    StateNotifierProvider.autoDispose<HomeController, List<String>>((ref) =>
+        HomeController(
+            ref.read(updateFavouritesToServerUseCaseProvider),
+            ref.read(updateFavouritesToDbUseCaseProvider),
+            ref.read(getUserFavouritesUseCaseProvider),
+            ref.read(logoutUseCaseProvider)));
 
 /// other
 

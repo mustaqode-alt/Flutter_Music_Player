@@ -34,12 +34,17 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Result<void>> updateFavouritesToServer(List<String>? favourites) async {
     try {
-      favourites ??= await _dbManager.getFavourites();
+      favourites = favourites ?? await _dbManager.getFavourites();
       var updateFav = await _fbService.updateFavourites(favourites);
       return Result.success(updateFav);
     } catch (error) {
       return Result.error(error.toString());
     }
+  }
+
+  @override
+  Future<void> logout()  {
+   return _fbService.logout();
   }
 
 }
