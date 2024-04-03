@@ -22,7 +22,7 @@ A beautiful music player made in Flutter.
 
 ## Demo
 
-![Watch the Demo Video]([https://github.com/mustaqode-alt/Flutter_Music_Player/blob/main/Music_player_demo.mp4])
+![Watch the Demo Video]([https://drive.google.com/file/d/19hs2N-Wi_uSoFZ2bh_Vxpd86Iw6v6OFV/view?usp=share_link])
 
 Working demo of the app.
 
