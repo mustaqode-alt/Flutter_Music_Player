@@ -22,7 +22,6 @@ A beautiful music player made in Flutter.
 
 ## Demo
 
-![Watch the Demo Video]([https://drive.google.com/file/d/19hs2N-Wi_uSoFZ2bh_Vxpd86Iw6v6OFV/view?usp=share_link])
+[![Watch the Demo Video](https://drive.google.com/file/d/19hs2N-Wi_uSoFZ2bh_Vxpd86Iw6v6OFV/view?usp=share_link)](https://drive.google.com/file/d/19hs2N-Wi_uSoFZ2bh_Vxpd86Iw6v6OFV/view?usp=sharing)
 
 Working demo of the app.
-
